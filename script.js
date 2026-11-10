@@ -6,6 +6,7 @@ let wrongEl = document.getElementById("wrongCount");
 let highScoreEl = document.getElementById("highScore");
 let livesEl = document.getElementById("lives");
 let timerDisplay = document.getElementById("timerDisplay");
+let timerLabel = timerDisplay.parentElement;
 let statusMsg = document.getElementById("statusMsg");
 let btn = document.getElementById("btn");
 let muteBtn = document.getElementById("muteBtn");
@@ -25,17 +26,12 @@ let isMuted = false;
 
 function toggleMute() {
   isMuted = !isMuted;
-  if (isMuted) {
-    muteBtn.innerText = "Sound: OFF";
-    muteBtn.style.backgroundColor = "#7f8c8d";
-  } else {
-    muteBtn.innerText = "Sound: ON";
-    muteBtn.style.backgroundColor = "#2ecc71";
-  }
+  muteBtn.classList.toggle("muted", isMuted);
+  muteBtn.innerText = isMuted ? "Sound: OFF" : "Sound: ON";
 }
 
 function playTone(freq, type, duration, delay = 0) {
-  if (isMuted) return; // Stop immediately if sound is muted
+  if (isMuted) return;
 
   if (audioCtx.state === "suspended") {
     audioCtx.resume();
@@ -102,17 +98,25 @@ function changeImage() {
   dynamicImg.style.backgroundImage = `url('${currentImage}')`;
 }
 
+function setStatus(text, type = "") {
+  statusMsg.innerText = text;
+  statusMsg.className = "status-msg";
+  if (type) {
+    statusMsg.classList.add(type);
+  }
+}
+
 // 3. Round Countdown Logic
 function startRoundTimer() {
   clearInterval(countdownTimer);
   timeLeft = roundDuration;
   timerDisplay.innerText = timeLeft.toFixed(1);
-  timerDisplay.parentElement.style.color = "blueviolet";
+  timerLabel.classList.remove("low-time");
 
   countdownTimer = setInterval(() => {
     timeLeft -= 0.1;
     if (timeLeft <= 1.5) {
-      timerDisplay.parentElement.style.color = "red";
+      timerLabel.classList.add("low-time");
     }
 
     if (timeLeft <= 0) {
@@ -141,7 +145,6 @@ function handleMistake(message) {
   clearInterval(theTimer);
   clearInterval(countdownTimer);
   btn.disabled = true;
-  btn.style.opacity = "0.5";
 
   gameContainer.classList.add("flash-wrong");
 
@@ -151,16 +154,13 @@ function handleMistake(message) {
 
   if (wrongScore >= maxMistakes) {
     isGameOver = true;
-    statusMsg.style.color = "red";
-    statusMsg.innerText = "Game Over!";
+    setStatus("Game Over!", "error");
     playGameOverSound();
 
     btn.disabled = false;
-    btn.style.opacity = "1";
     btn.innerText = "Play Again";
   } else {
-    statusMsg.style.color = "red";
-    statusMsg.innerText = message;
+    setStatus(message, "error");
     playWrongSound();
     startNextRound();
   }
@@ -175,14 +175,12 @@ const stopGame = () => {
   clearInterval(theTimer);
   clearInterval(countdownTimer);
   btn.disabled = true;
-  btn.style.opacity = "0.5";
 
   if (currentImage === targetImage) {
     gameContainer.classList.add("flash-correct");
     correctScore++;
     correctEl.innerText = correctScore;
-    statusMsg.style.color = "green";
-    statusMsg.innerText = "Match!";
+    setStatus("Match!", "success");
     playCorrectSound();
 
     if (correctScore > highScore) {
@@ -201,9 +199,8 @@ function startNextRound() {
   setTimeout(() => {
     if (!isGameOver) {
       gameContainer.classList.remove("flash-correct", "flash-wrong");
-      statusMsg.innerText = "";
+      setStatus("");
       btn.disabled = false;
-      btn.style.opacity = "1";
       setNewTarget();
       theTimer = setInterval(changeImage, speed);
       startRoundTimer();
@@ -220,7 +217,7 @@ function resetGame() {
   correctEl.innerText = "0";
   wrongEl.innerText = "0";
   livesEl.innerText = maxMistakes;
-  statusMsg.innerText = "";
+  setStatus("");
   btn.innerText = "Stop";
 
   setNewTarget();
