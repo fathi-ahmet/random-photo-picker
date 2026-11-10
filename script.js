@@ -8,6 +8,7 @@ let livesEl = document.getElementById("lives");
 let timerDisplay = document.getElementById("timerDisplay");
 let statusMsg = document.getElementById("statusMsg");
 let btn = document.getElementById("btn");
+let muteBtn = document.getElementById("muteBtn");
 let speedSelect = document.getElementById("speedSelect");
 
 const dynamicImages = [
@@ -18,10 +19,24 @@ const dynamicImages = [
   "./img/monkey2.jpeg",
 ];
 
-// 1. Web Audio API Sound Generator
+// 1. Web Audio API Sound Generator with Mute Control
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let isMuted = false;
+
+function toggleMute() {
+  isMuted = !isMuted;
+  if (isMuted) {
+    muteBtn.innerText = "Sound: OFF";
+    muteBtn.style.backgroundColor = "#7f8c8d";
+  } else {
+    muteBtn.innerText = "Sound: ON";
+    muteBtn.style.backgroundColor = "#2ecc71";
+  }
+}
 
 function playTone(freq, type, duration, delay = 0) {
+  if (isMuted) return; // Stop immediately if sound is muted
+
   if (audioCtx.state === "suspended") {
     audioCtx.resume();
   }
@@ -68,7 +83,7 @@ let wrongScore = 0;
 const maxMistakes = 3;
 let isGameOver = false;
 
-const roundDuration = 5.0; // Seconds per round
+const roundDuration = 5.0;
 let timeLeft = roundDuration;
 let countdownTimer = null;
 
