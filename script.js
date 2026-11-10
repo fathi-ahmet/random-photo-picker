@@ -1,8 +1,8 @@
 let dynamicImg = document.getElementById("dynamicImg");
 let staticImg = document.getElementById("staticImg");
 let gameContainer = document.getElementById("gameContainer");
-let sax = document.getElementById("saxday");
-let qalad = document.getElementById("Qalad");
+let correctEl = document.getElementById("correctCount");
+let wrongEl = document.getElementById("wrongCount");
 let highScoreEl = document.getElementById("highScore");
 let livesEl = document.getElementById("lives");
 let timerDisplay = document.getElementById("timerDisplay");
@@ -63,8 +63,8 @@ function playGameOverSound() {
 let speed = 150;
 let currentImage = "";
 let targetImage = "";
-let saxday = 0;
-let qaladay = 0;
+let correctScore = 0;
+let wrongScore = 0;
 const maxMistakes = 3;
 let isGameOver = false;
 
@@ -102,7 +102,7 @@ function startRoundTimer() {
 
     if (timeLeft <= 0) {
       timerDisplay.innerText = "0.0";
-      handleMistake("Waqtigu wuu dhammaaday! (Time's up!)");
+      handleMistake("Time's up!");
     } else {
       timerDisplay.innerText = timeLeft.toFixed(1);
     }
@@ -130,28 +130,28 @@ function handleMistake(message) {
 
   gameContainer.classList.add("flash-wrong");
 
-  qaladay++;
-  qalad.innerText = qaladay;
-  livesEl.innerText = maxMistakes - qaladay;
+  wrongScore++;
+  wrongEl.innerText = wrongScore;
+  livesEl.innerText = maxMistakes - wrongScore;
 
-  if (qaladay >= maxMistakes) {
+  if (wrongScore >= maxMistakes) {
     isGameOver = true;
     statusMsg.style.color = "red";
-    statusMsg.innerText = "Ciyaartu way dhammaatay! (Game Over)";
+    statusMsg.innerText = "Game Over!";
     playGameOverSound();
 
     btn.disabled = false;
     btn.style.opacity = "1";
-    btn.innerText = "Ciyaar Mar Kale (Play Again)";
+    btn.innerText = "Play Again";
   } else {
     statusMsg.style.color = "red";
     statusMsg.innerText = message;
     playWrongSound();
-    markaleBilow();
+    startNextRound();
   }
 }
 
-const istaag = () => {
+const stopGame = () => {
   if (isGameOver) {
     resetGame();
     return;
@@ -164,25 +164,25 @@ const istaag = () => {
 
   if (currentImage === targetImage) {
     gameContainer.classList.add("flash-correct");
-    saxday++;
-    sax.innerText = saxday;
+    correctScore++;
+    correctEl.innerText = correctScore;
     statusMsg.style.color = "green";
-    statusMsg.innerText = "Waa sax! (Match!)";
+    statusMsg.innerText = "Match!";
     playCorrectSound();
 
-    if (saxday > highScore) {
-      highScore = saxday;
+    if (correctScore > highScore) {
+      highScore = correctScore;
       highScoreEl.innerText = highScore;
       localStorage.setItem("photoRandomizerHighScore", highScore);
     }
 
-    markaleBilow();
+    startNextRound();
   } else {
-    handleMistake("Waa qalad! Isku day mar kale.");
+    handleMistake("Wrong match! Try again.");
   }
 };
 
-function markaleBilow() {
+function startNextRound() {
   setTimeout(() => {
     if (!isGameOver) {
       gameContainer.classList.remove("flash-correct", "flash-wrong");
@@ -197,16 +197,16 @@ function markaleBilow() {
 }
 
 function resetGame() {
-  saxday = 0;
-  qaladay = 0;
+  correctScore = 0;
+  wrongScore = 0;
   isGameOver = false;
 
   gameContainer.classList.remove("flash-correct", "flash-wrong");
-  sax.innerText = "0";
-  qalad.innerText = "0";
+  correctEl.innerText = "0";
+  wrongEl.innerText = "0";
   livesEl.innerText = maxMistakes;
   statusMsg.innerText = "";
-  btn.innerText = "Ku istaag";
+  btn.innerText = "Stop";
 
   setNewTarget();
   speed = Number(speedSelect.value);
@@ -219,7 +219,7 @@ document.addEventListener("keydown", event => {
   if (event.code === "Space") {
     event.preventDefault();
     if (!btn.disabled) {
-      istaag();
+      stopGame();
     }
   }
 });
