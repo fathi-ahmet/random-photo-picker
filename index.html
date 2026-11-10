@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div style="margin-bottom: 10px; font-weight: bold">
-      <span>High Score: <span id="highScore">0</span></span> |
-      <span>Nolosha (Lives): <span id="lives">3</span></span>
+    <div
+      style="margin-bottom: 12px; font-weight: bold; display: flex; gap: 15px"
+    >
+      <span>High Score: <span id="highScore">0</span></span>
+      <span>|</span>
+      <span>Nolosha: <span id="lives">3</span></span>
+      <span>|</span>
+      <span style="color: blueviolet"
+        >Waqtiga: <span id="timerDisplay">5.0</span>s</span
+      >
     </div>
 
-    <div class="container">
+    <div class="container" id="gameContainer">
       <div id="dynamicImg"></div>
       <div id="staticImg"></div>
     </div>
