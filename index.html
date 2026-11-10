@@ -33,13 +33,31 @@
       ></p>
     </div>
 
-    <div style="margin-top: 10px">
-      <label for="speedSelect">Speed: </label>
-      <select id="speedSelect" onchange="changeSpeed()">
-        <option value="300">Slow (300ms)</option>
-        <option value="150" selected>Normal (150ms)</option>
-        <option value="70">Fast (70ms)</option>
-      </select>
+    <div
+      style="margin-top: 10px; display: flex; align-items: center; gap: 12px"
+    >
+      <div>
+        <label for="speedSelect">Speed: </label>
+        <select id="speedSelect" onchange="changeSpeed()">
+          <option value="300">Slow (300ms)</option>
+          <option value="150" selected>Normal (150ms)</option>
+          <option value="70">Fast (70ms)</option>
+        </select>
+      </div>
+
+      <button
+        type="button"
+        id="muteBtn"
+        onclick="toggleMute()"
+        style="
+          margin-top: 0;
+          padding: 6px 14px;
+          font-size: 14px;
+          background-color: #2ecc71;
+        "
+      >
+        Sound: ON
+      </button>
     </div>
 
     <button onclick="stopGame()" id="btn">Stop</button>
