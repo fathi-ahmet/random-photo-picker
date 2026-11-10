@@ -14,6 +14,24 @@ body {
   font-size: 20px;
 }
 
+/* Top Stats Bar */
+.stats-bar {
+  margin-bottom: 12px;
+  font-weight: bold;
+  display: flex;
+  gap: 15px;
+}
+
+.timer-label {
+  color: blueviolet;
+  transition: color 0.2s ease;
+}
+
+.timer-label.low-time {
+  color: #e74c3c;
+}
+
+/* Image Display Container */
 .container {
   width: 80%;
   max-width: 600px;
@@ -32,14 +50,12 @@ body {
     transform 0.2s ease;
 }
 
-/* Green Glow Animation for Match */
 .flash-correct {
   border-color: #2ecc71;
   box-shadow: 0 0 28px rgba(46, 204, 113, 0.85);
   transform: scale(1.03);
 }
 
-/* Red Glow Animation for Miss or Timeout */
 .flash-wrong {
   border-color: #e74c3c;
   box-shadow: 0 0 28px rgba(231, 76, 60, 0.85);
@@ -55,7 +71,72 @@ body {
   background-repeat: no-repeat;
 }
 
-button {
+/* Score and Status Messages */
+.score-board {
+  text-align: center;
+}
+
+.correct-text {
+  color: #27ae60;
+}
+
+.wrong-text {
+  color: #e74c3c;
+}
+
+.status-msg {
+  font-weight: bold;
+  margin-top: 8px;
+  min-height: 28px;
+}
+
+.status-msg.success {
+  color: #27ae60;
+}
+
+.status-msg.error {
+  color: #e74c3c;
+}
+
+/* Speed & Mute Controls */
+.controls-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controls-row select {
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.mute-btn {
+  border: 0;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #2ecc71;
+  transition: background-color 0.2s ease;
+}
+
+.mute-btn:hover {
+  background-color: #27ae60;
+}
+
+.mute-btn.muted {
+  background-color: #7f8c8d;
+}
+
+.mute-btn.muted:hover {
+  background-color: #6c7a7b;
+}
+
+/* Main Stop / Play Again Button */
+.main-btn {
   border: 0;
   background-color: blueviolet;
   color: white;
@@ -64,18 +145,24 @@ button {
   font-size: large;
   margin-top: 15px;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
-button:hover {
+.main-btn:hover:not(:disabled) {
   background-color: rgb(98, 18, 173);
 }
 
-.sax {
-  color: green;
+.main-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.qalad {
-  color: red;
+.hint-text {
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
 }
 
 @media only screen and (max-width: 768px) {
