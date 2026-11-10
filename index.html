@@ -7,16 +7,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div
-      style="margin-bottom: 12px; font-weight: bold; display: flex; gap: 15px"
-    >
+    <div class="stats-bar">
       <span>High Score: <span id="highScore">0</span></span>
       <span>|</span>
       <span>Lives: <span id="lives">3</span></span>
       <span>|</span>
-      <span style="color: blueviolet"
-        >Time: <span id="timerDisplay">5.0</span>s</span
-      >
+      <span class="timer-label">Time: <span id="timerDisplay">5.0</span>s</span>
     </div>
 
     <div class="container" id="gameContainer">
@@ -24,18 +20,13 @@
       <div id="staticImg"></div>
     </div>
 
-    <div>
-      <p class="sax">Correct: <span id="correctCount">0</span></p>
-      <p class="qalad">Wrong: <span id="wrongCount">0</span> / 3</p>
-      <p
-        id="statusMsg"
-        style="font-weight: bold; margin-top: 8px; min-height: 28px"
-      ></p>
+    <div class="score-board">
+      <p class="correct-text">Correct: <span id="correctCount">0</span></p>
+      <p class="wrong-text">Wrong: <span id="wrongCount">0</span> / 3</p>
+      <p id="statusMsg" class="status-msg"></p>
     </div>
 
-    <div
-      style="margin-top: 10px; display: flex; align-items: center; gap: 12px"
-    >
+    <div class="controls-row">
       <div>
         <label for="speedSelect">Speed: </label>
         <select id="speedSelect" onchange="changeSpeed()">
@@ -48,22 +39,15 @@
       <button
         type="button"
         id="muteBtn"
+        class="mute-btn"
         onclick="toggleMute()"
-        style="
-          margin-top: 0;
-          padding: 6px 14px;
-          font-size: 14px;
-          background-color: #2ecc71;
-        "
       >
         Sound: ON
       </button>
     </div>
 
-    <button onclick="stopGame()" id="btn">Stop</button>
-    <p style="font-size: 14px; color: #555; margin-top: 8px">
-      Click the button or press <strong>Spacebar</strong>
-    </p>
+    <button onclick="stopGame()" id="btn" class="main-btn">Stop</button>
+    <p class="hint-text">Click the button or press <strong>Spacebar</strong></p>
 
     <script src="script.js"></script>
   </body>
