@@ -11,13 +11,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .container {
   width: 80%;
   max-width: 600px;
-  height: 50vh;
+  height: 45vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +25,25 @@ body {
   border-radius: 20px;
   margin-bottom: 20px;
   background-color: #846668;
+  border: 6px solid transparent;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Green Glow Animation for Match */
+.flash-correct {
+  border-color: #2ecc71;
+  box-shadow: 0 0 28px rgba(46, 204, 113, 0.85);
+  transform: scale(1.03);
+}
+
+/* Red Glow Animation for Miss or Timeout */
+.flash-wrong {
+  border-color: #e74c3c;
+  box-shadow: 0 0 28px rgba(231, 76, 60, 0.85);
+  transform: scale(0.98);
 }
 
 #dynamicImg,
@@ -36,10 +55,6 @@ body {
   background-repeat: no-repeat;
 }
 
-#staticImg {
-  background-image: url("./img/cat1.jpeg");
-}
-
 button {
   border: 0;
   background-color: blueviolet;
@@ -47,7 +62,7 @@ button {
   padding: 10px 33px;
   border-radius: 10px;
   font-size: large;
-  margin-top: 20px;
+  margin-top: 15px;
   cursor: pointer;
 }
 
