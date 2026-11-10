@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>photo randomizer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div style="margin-bottom: 10px; font-weight: bold">
+      <span>High Score: <span id="highScore">0</span></span> |
+      <span>Nolosha (Lives): <span id="lives">3</span></span>
+    </div>
+
+    <div class="container">
+      <div id="dynamicImg"></div>
+      <div id="staticImg"></div>
+    </div>
+
+    <div>
+      <p class="sax">Saxday: <span id="saxday">0</span></p>
+      <p class="qalad">Qaladay: <span id="Qalad">0</span> / 3</p>
+      <p
+        id="statusMsg"
+        style="font-weight: bold; margin-top: 8px; min-height: 28px"
+      ></p>
+    </div>
+
+    <div style="margin-top: 10px">
+      <label for="speedSelect">Xawaaraha (Speed): </label>
+      <select id="speedSelect" onchange="changeSpeed()">
+        <option value="300">Slow (300ms)</option>
+        <option value="150" selected>Normal (150ms)</option>
+        <option value="70">Fast (70ms)</option>
+      </select>
+    </div>
+
+    <button onclick="istaag()" id="btn">Ku istaag</button>
+    <p style="font-size: 14px; color: #555; margin-top: 8px">
+      Riix badhanka ama guji <strong>Spacebar</strong>
+    </p>
+
+    <script src="script.js"></script>
+  </body>
+</html>
